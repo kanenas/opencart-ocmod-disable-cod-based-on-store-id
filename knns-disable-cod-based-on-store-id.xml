@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+	<id><![CDATA[[OCMOD] Disable COD (Cash On Delivery) based on Store ID]]></id>
+	<name><![CDATA[Disable COD (Cash On Delivery) based on Store ID]]></name>
+	<code>knns-disable-cod-based-on-store-id</code>
+	<version>0.1.0</version>
+	<author><![CDATA[<font color="#7F458C"><b>kanenas.net (aka Nikolas Branis)</b></font> - nbran@kanenas.net]]></author>
+	<link>https://kanenas.net/</link>
+	<file path="catalog/model/extension/payment/cod.php" error="log">
+		<operation error="skip">
+			<search><![CDATA[public function getMethod($address, $total) {]]></search>
+			<add position="after"><![CDATA[
+		// kanenas: knns-disable-cod-based-on-store-id (start) <<
+		if ((int)$this->config->get('config_store_id') > 0 ) return;
+		// kanenas: knns-disable-cod-based-on-store-id (end) <<
+			]]></add>
+		</operation>
+	</file>
+</modification>
